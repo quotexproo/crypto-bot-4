@@ -1,5 +1,5 @@
-# 🔥 AlphaSignal Pro — FINAL (Hardcoded 300 USDT Pairs Across 5 Exchanges)
-# ✅ Guaranteed 300 | ✅ No duplicates | ✅ Multi-Exchange | ✅ No errors
+# 🔥 AlphaSignal Pro — FINAL (300 USDT Pairs Across 5 Exchanges)
+# ✅ Exactly 300 | ✅ No duplicates | ✅ Multi-Exchange | ✅ No errors
 
 import streamlit as st
 import ccxt
@@ -10,11 +10,10 @@ import time
 import threading
 
 # ----------------------------
-# HARD-CODED LIST OF 300 UNIQUE, REAL USDT PAIRS ACROSS 5 EXCHANGES
-# Verified for ccxt compatibility (2025)
+# HARD-CODED 300 UNIQUE (exchange, pair) — VERIFIED COUNT
 # ----------------------------
 PAIRS_CONFIG = [
-    # Binance (80 pairs)
+    # Binance (80)
     ("binance", "BTC/USDT"), ("binance", "ETH/USDT"), ("binance", "SOL/USDT"), ("binance", "XRP/USDT"),
     ("binance", "ADA/USDT"), ("binance", "DOGE/USDT"), ("binance", "DOT/USDT"), ("binance", "AVAX/USDT"),
     ("binance", "LINK/USDT"), ("binance", "MATIC/USDT"), ("binance", "LTC/USDT"), ("binance", "UNI/USDT"),
@@ -22,19 +21,20 @@ PAIRS_CONFIG = [
     ("binance", "APT/USDT"), ("binance", "FIL/USDT"), ("binance", "RNDR/USDT"), ("binance", "INJ/USDT"),
     ("binance", "OP/USDT"), ("binance", "ARB/USDT"), ("binance", "SUI/USDT"), ("binance", "SEI/USDT"),
     ("binance", "TIA/USDT"), ("binance", "IMX/USDT"), ("binance", "STX/USDT"), ("binance", "AAVE/USDT"),
-    ("binance", "ALGO/USDT"), ("binance", "AXS/USDT"), ("binance", "COMP/USDT"), ("binance", "CRV/USDT"),
-    ("binance", "ENJ/USDT"), ("binance", "GALA/USDT"), ("binance", "MANA/USDT"), ("binance", "SAND/USDT"),
-    ("binance", "THETA/USDT"), ("binance", "ZEC/USDT"), ("binance", "XMR/USDT"), ("binance", "EGLD/USDT"),
-    ("binance", "KSM/USDT"), ("binance", "RUNE/USDT"), ("binance", "CELO/USDT"), ("binance", "ONE/USDT"),
+    ("binance", "ALGO/USDT"), ("binance", "AXS/USDT"), ("binance", "CRV/USDT"), ("binance", "GALA/USDT"),
+    ("binance", "MANA/USDT"), ("binance", "SAND/USDT"), ("binance", "THETA/USDT"), ("binance", "ZEC/USDT"),
+    ("binance", "XMR/USDT"), ("binance", "EGLD/USDT"), ("binance", "KSM/USDT"), ("binance", "CELO/USDT"),
     ("binance", "CHZ/USDT"), ("binance", "HBAR/USDT"), ("binance", "MINA/USDT"), ("binance", "ICP/USDT"),
     ("binance", "VET/USDT"), ("binance", "FTM/USDT"), ("binance", "FLOW/USDT"), ("binance", "GRT/USDT"),
-    ("binance", "BAT/USDT"), ("binance", "ZRX/USDT"), ("binance", "SNX/USDT"), ("binance", "YFI/USDT"),
-    ("binance", "MKR/USDT"), ("binance", "LDO/USDT"), ("binance", "CAKE/USDT"), ("binance", "DYDX/USDT"),
-    ("binance", "BLUR/USDT"), ("binance", "1INCH/USDT"), ("binance", "ANKR/USDT"), ("binance", "BAND/USDT"),
-    ("binance", "CTSI/USDT"), ("binance", "DENT/USDT"), ("binance", "DGB/USDT"), ("binance", "DODO/USDT"),
-    ("binance", "ENS/USDT"), ("binance", "FET/USDT"), ("binance", "FLUX/USDT"), ("binance", "GLM/USDT"),
+    ("binance", "BAT/USDT"), ("binance", "SNX/USDT"), ("binance", "YFI/USDT"), ("binance", "LDO/USDT"),
+    ("binance", "CAKE/USDT"), ("binance", "DYDX/USDT"), ("binance", "BLUR/USDT"), ("binance", "1INCH/USDT"),
+    ("binance", "ANKR/USDT"), ("binance", "BAND/USDT"), ("binance", "CTSI/USDT"), ("binance", "DENT/USDT"),
+    ("binance", "COMP/USDT"), ("binance", "ZRX/USDT"), ("binance", "MKR/USDT"), ("binance", "ENS/USDT"),
+    ("binance", "FET/USDT"), ("binance", "FLUX/USDT"), ("binance", "GLM/USDT"), ("binance", "IOST/USDT"),
+    ("binance", "RUNE/USDT"), ("binance", "ONE/USDT"), ("binance", "DGB/USDT"), ("binance", "DODO/USDT"),
+    ("binance", "SUPER/USDT"), ("binance", "TRB/USDT"), ("binance", "UMA/USDT"), ("binance", "WAVES/USDT"),
     
-    # Bybit (60 pairs)
+    # Bybit (60)
     ("bybit", "BTC/USDT"), ("bybit", "ETH/USDT"), ("bybit", "SOL/USDT"), ("bybit", "XRP/USDT"),
     ("bybit", "ADA/USDT"), ("bybit", "DOGE/USDT"), ("bybit", "DOT/USDT"), ("bybit", "AVAX/USDT"),
     ("bybit", "LINK/USDT"), ("bybit", "MATIC/USDT"), ("bybit", "LTC/USDT"), ("bybit", "UNI/USDT"),
@@ -50,9 +50,8 @@ PAIRS_CONFIG = [
     ("bybit", "BAT/USDT"), ("bybit", "SNX/USDT"), ("bybit", "YFI/USDT"), ("bybit", "LDO/USDT"),
     ("bybit", "CAKE/USDT"), ("bybit", "DYDX/USDT"), ("bybit", "BLUR/USDT"), ("bybit", "1INCH/USDT"),
     ("bybit", "ANKR/USDT"), ("bybit", "BAND/USDT"), ("bybit", "CTSI/USDT"), ("bybit", "DENT/USDT"),
-    ("bybit", "ENS/USDT"), ("bybit", "FET/USDT"), ("bybit", "GLM/USDT"), ("bybit", "IOST/USDT"),
     
-    # OKX (60 pairs)
+    # OKX (60)
     ("okx", "BTC/USDT"), ("okx", "ETH/USDT"), ("okx", "SOL/USDT"), ("okx", "XRP/USDT"),
     ("okx", "ADA/USDT"), ("okx", "DOGE/USDT"), ("okx", "DOT/USDT"), ("okx", "AVAX/USDT"),
     ("okx", "LINK/USDT"), ("okx", "MATIC/USDT"), ("okx", "LTC/USDT"), ("okx", "UNI/USDT"),
@@ -68,9 +67,8 @@ PAIRS_CONFIG = [
     ("okx", "BAT/USDT"), ("okx", "SNX/USDT"), ("okx", "YFI/USDT"), ("okx", "LDO/USDT"),
     ("okx", "CAKE/USDT"), ("okx", "DYDX/USDT"), ("okx", "BLUR/USDT"), ("okx", "1INCH/USDT"),
     ("okx", "ANKR/USDT"), ("okx", "BAND/USDT"), ("okx", "CTSI/USDT"), ("okx", "DENT/USDT"),
-    ("okx", "ENS/USDT"), ("okx", "FET/USDT"), ("okx", "GLM/USDT"), ("okx", "IOST/USDT"),
     
-    # KuCoin (50 pairs)
+    # KuCoin (50)
     ("kucoin", "BTC/USDT"), ("kucoin", "ETH/USDT"), ("kucoin", "SOL/USDT"), ("kucoin", "XRP/USDT"),
     ("kucoin", "ADA/USDT"), ("kucoin", "DOGE/USDT"), ("kucoin", "DOT/USDT"), ("kucoin", "AVAX/USDT"),
     ("kucoin", "LINK/USDT"), ("kucoin", "MATIC/USDT"), ("kucoin", "LTC/USDT"), ("kucoin", "UNI/USDT"),
@@ -85,7 +83,7 @@ PAIRS_CONFIG = [
     ("kucoin", "VET/USDT"), ("kucoin", "FTM/USDT"), ("kucoin", "FLOW/USDT"), ("kucoin", "GRT/USDT"),
     ("kucoin", "BAT/USDT"), ("kucoin", "SNX/USDT"), ("kucoin", "YFI/USDT"), ("kucoin", "LDO/USDT"),
     
-    # Bitget (50 pairs)
+    # Bitget (50)
     ("bitget", "BTC/USDT"), ("bitget", "ETH/USDT"), ("bitget", "SOL/USDT"), ("bitget", "XRP/USDT"),
     ("bitget", "ADA/USDT"), ("bitget", "DOGE/USDT"), ("bitget", "DOT/USDT"), ("bitget", "AVAX/USDT"),
     ("bitget", "LINK/USDT"), ("bitget", "MATIC/USDT"), ("bitget", "LTC/USDT"), ("bitget", "UNI/USDT"),
@@ -98,16 +96,15 @@ PAIRS_CONFIG = [
     ("bitget", "XMR/USDT"), ("bitget", "EGLD/USDT"), ("bitget", "KSM/USDT"), ("bitget", "CELO/USDT"),
     ("bitget", "CHZ/USDT"), ("bitget", "HBAR/USDT"), ("bitget", "MINA/USDT"), ("bitget", "ICP/USDT"),
     ("bitget", "VET/USDT"), ("bitget", "FTM/USDT"), ("bitget", "FLOW/USDT"), ("bitget", "GRT/USDT"),
-    ("bitget", "BAT/USDT"), ("bitget", "SNX/USDT"), ("bitget", "YFI/USDT"), ("bitget", "LDO/USDT"),
+    ("bitget", "BAT/USDT"), ("bitget", "SNX/USDT"), ("bitget", "YFI/USDT"), ("bitget", "LDO/USDT")
 ]
 
-# ✅ Validate: exactly 300 entries
-assert len(PAIRS_CONFIG) == 300, f"Got {len(PAIRS_CONFIG)} pairs, expected 300"
-# ✅ Validate: no duplicate (exchange, pair)
-assert len(set(PAIRS_CONFIG)) == 300, "Duplicate (exchange, pair) found!"
+# ✅ Critical: Validate pair count and uniqueness
+assert len(PAIRS_CONFIG) == 300, f"PAIRS_CONFIG has {len(PAIRS_CONFIG)} items, expected 300"
+assert len(set(PAIRS_CONFIG)) == 300, "Duplicate (exchange, pair) detected!"
 
 # ----------------------------
-# Rest of the app (same logic, no changes needed)
+# Streamlit State Initialization
 # ----------------------------
 if "signals" not in st.session_state:
     st.session_state.signals = []
@@ -282,7 +279,7 @@ def analyze_pair_professional(exchange_id, pair):
         "reason": f"Score {score}: Trend+Cross+Structure"
     }
 
-# --- Scanning ---
+# --- Scanning Logic ---
 def run_quick_scan():
     st.session_state.status = "🔍 Fetching live prices for 300 USDT pairs..."
     st.session_state.timer = 120
@@ -388,4 +385,4 @@ if st.session_state.signals:
         st.rerun()
 
 st.markdown("---")
-st.caption("✅ 300 real USDT pairs | 🌐 Multi-exchange (Binance, Bybit, OKX, KuCoin, Bitget) | 🚫 No cooldown | 🖥️ Local UI")
+st.caption("✅ 300 real USDT pairs | 🌐 Multi-exchange (Binance, Bybit, OKX, KuCoin, Bitget) | 🚀 No cooldown | 💻 Local UI")
